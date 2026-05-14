@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>Soma Kömür Ocağı - Ana Sayfa</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <div class="ana-kapsayici">
+
+        <div class="baslik">
+            <h1>⛏️ SOMA KÖMÜR OCAĞI</h1>
+            <div class="kullanici-bilgi">
+                👤 {{ kullanici }} |
+                <a href="/cikis">Çıkış Yap</a>
+            </div>
+        </div>
+
+        <div class="butonlar">
+            <a href="/vardiya" class="btn">📋 Vardiya Raporu Oluştur</a>
+            <a href="/gunluk"  class="btn">📅 Günlük Rapor</a>
+            <a href="/haftalik" class="btn">📊 Haftalık Rapor</a>
+        </div>
+
+        {% if mesaj %}
+        <div class="sonuc-kutu">
+            <pre>{{ mesaj }}</pre>
+        </div>
+        {% endif %}
+
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>Soma Kömür Ocağı - Giriş</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <div class="giris-kutu">
+        <h1>⛏️ SOMA KÖMÜR OCAĞI</h1>
+        <h3>Yönetim Sistemi</h3>
+
+        <form method="POST">
+            <input type="text" name="kullanici" placeholder="Kullanıcı Adı" required><br>
+            <input type="password" name="sifre" placeholder="Şifre" required><br>
+            <button type="submit">Giriş Yap</button>
+        </form>
+
+        {% if hata %}
+            <p class="hata">{{ hata }}</p>
+        {% endif %}
+
+    </div>
+
+</body>
+</html>

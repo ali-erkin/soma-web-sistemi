@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>Soma Kömür Ocağı - {{ baslik }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <div class="ana-kapsayici">
+
+        <div class="baslik">
+            <a href="/ana" class="geri-btn">← Geri Dön</a>
+            <h1>⛏️ {{ baslik }}</h1>
+            <span></span>
+        </div>
+
+        <div class="sonuc-kutu">
+            <pre>{{ mesaj }}</pre>
+        </div>
+
+    </div>
+
+</body>
+</html>
