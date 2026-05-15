@@ -8,6 +8,7 @@ from sabit_veriler import ARACLAR, HEDEF_GUNLUK, VARDIYALAR
 from veri_giris import test_vardiya_olustur
 from raporlama import vardiya_raporu_kaydet, gunluk_rapor_kaydet, haftalik_rapor_kaydet
 from veritabani import gunluk_ozet, haftalik_ozet, kullanici_kontrol
+from grafik import grafik_olustur
 
 app = Flask(__name__)
 app.secret_key = "soma_gizli_anahtar"
@@ -117,6 +118,12 @@ def haftalik():
 
     return render_template("rapor.html", baslik="Haftalık Rapor", mesaj=mesaj)
 
+@app.route("/grafik")
+def grafik():
+    if "kullanici" not in session:
+        return redirect(url_for("giris"))
+    grafik_olustur()
+    return render_template("grafik.html")
 
 def aktif_vardiya_bul():
     saat = datetime.now().hour
