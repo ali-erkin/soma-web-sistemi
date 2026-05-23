@@ -1,0 +1,25 @@
+name: Soma CI/CD
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Kodu indir
+        uses: actions/checkout@v3
+
+      - name: Python kur
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.12'
+
+      - name: Kütüphaneleri kur
+        run: pip install flask psycopg2-binary pandas matplotlib pytest
+
+      - name: Testleri çalıştır
+        run: pytest test_maden.py -v

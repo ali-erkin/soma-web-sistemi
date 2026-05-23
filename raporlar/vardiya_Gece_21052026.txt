@@ -1,0 +1,47 @@
+════════════════════════════════
+  SOMA KÖMÜR OCAĞI - VARDİYA RAPORU
+════════════════════════════════
+Tarih    : 21.05.2026
+Vardiya  : Gece
+Sorumlu  : Hasan
+────────────────────────────────
+Araç     : 34 ABC 001 | Mehmet Yılmaz
+Durum    : Çalışıyor
+Tur      : 3
+Tonaj    : 90 ton
+Km       : 22.8 km
+Yakit    : 1026.0 TL
+────────────────────────────────
+Araç     : 34 ABC 002 | Ahmet Kaya
+Durum    : Çalışıyor
+Tur      : 5
+Tonaj    : 150 ton
+Km       : 18.8 km
+Yakit    : 846.0 TL
+────────────────────────────────
+Araç     : 34 ABC 003 | Hüseyin Demir
+Durum    : Çalışıyor
+Tur      : 3
+Tonaj    : 90 ton
+Km       : 23.8 km
+Yakit    : 1071.0 TL
+────────────────────────────────
+Araç     : 34 ABC 004 | Mustafa Çelik
+Durum    : Çalışıyor
+Tur      : 5
+Tonaj    : 150 ton
+Km       : 22.2 km
+Yakit    : 999.0 TL
+────────────────────────────────
+Araç     : 34 ABC 005 | İbrahim Şahin
+Durum    : Çalışıyor
+Tur      : 3
+Tonaj    : 90 ton
+Km       : 22.9 km
+Yakit    : 1030.5 TL
+────────────────────────────────
+TOPLAM TON   : 570 ton
+TOPLAM KM    : 110.5 km
+TOPLAM YAKIT : 4972.5 TL
+SONUC        : Hedef Asildi!
+════════════════════════════════

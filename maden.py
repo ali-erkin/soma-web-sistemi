@@ -25,7 +25,7 @@ ARACLAR = {
 VARDIYALAR = ["Sabah", "Öğle", "Gece"]
 
 # ─── FONKSİYON 1: TEST VERİSİ ───────────────
-def test_vardiya_olustur(vardiya_adi, tarih):
+def sahte_vardiya_olustur(vardiya_adi, tarih):
     vardiya_verisi = {
         "tarih"               : tarih.strftime("%d.%m.%Y"),
         "vardiya"             : vardiya_adi,

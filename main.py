@@ -2,7 +2,7 @@ import os
 from veritabani import veritabani_baslat, vardiya_kaydet, gunluk_ozet, haftalik_ozet
 from datetime import date, timedelta
 from sabit_veriler import ARACLAR, HEDEF_GUNLUK, VARDIYALAR
-from veri_giris   import test_vardiya_olustur
+from veri_giris import sahte_vardiya_olustur
 from raporlama    import vardiya_raporu_kaydet, gunluk_rapor_kaydet, haftalik_rapor_kaydet
 veritabani_baslat()
 # ─── SİSTEM BAŞLAT ──────────────────────────
@@ -20,7 +20,7 @@ for gun in range(7):
     tum_vardiyalar = []
 
     for vardiya_adi in VARDIYALAR:
-        veri = test_vardiya_olustur(vardiya_adi, tarih)
+        veri = sahte_vardiya_olustur(vardiya_adi, tarih)
         vardiya_raporu_kaydet(veri)
         vardiya_kaydet(veri)
         tum_vardiyalar.append(veri)

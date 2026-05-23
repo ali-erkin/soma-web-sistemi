@@ -1,53 +1,61 @@
-import sqlite3
-import os
+import psycopg2
 
-# ─── VERİTABANI YOLU ────────────────────────
-klasor = os.path.dirname(os.path.abspath(__file__))
-DB_YOLU = os.path.join(klasor, "maden.db")
+# ─── BAĞLANTI BİLGİLERİ ─────────────────────
+DB_BAGLANTI = {
+    "host"    : "aws-0-eu-west-1.pooler.supabase.com",
+    "port"    : 6543,
+    "database": "postgres",
+    "user"    : "postgres.gjkgcbjgaghyvswbtpiy",
+    "password": "Karakartal1903.."
+}
+
+def baglanti_ac():
+    return psycopg2.connect(**DB_BAGLANTI)
 
 # ─── TABLOLARI OLUŞTUR ──────────────────────
 def veritabani_baslat():
-    baglanti = sqlite3.connect(DB_YOLU)
+    baglanti = baglanti_ac()
     imleç = baglanti.cursor()
 
     imleç.execute("""
         CREATE TABLE IF NOT EXISTS vardiyalar (
-            id              INTEGER PRIMARY KEY AUTOINCREMENT,
-            tarih           TEXT,
-            vardiya         TEXT,
-            sorumlu         TEXT,
-            toplam_ton      REAL,
-            toplam_km       REAL,
-            toplam_yakit    REAL
+            id           SERIAL PRIMARY KEY,
+            tarih        VARCHAR(20),
+            vardiya      VARCHAR(20),
+            sorumlu      VARCHAR(50),
+            toplam_ton   REAL,
+            toplam_km    REAL,
+            toplam_yakit REAL,
+            created_at   TIMESTAMP DEFAULT NOW()
         )
     """)
 
     imleç.execute("""
         CREATE TABLE IF NOT EXISTS kullanicilar (
-            id            INTEGER PRIMARY KEY AUTOINCREMENT,
-            kullanici_adi TEXT UNIQUE,
-            sifre         TEXT,
-            rol           TEXT
+            id            SERIAL PRIMARY KEY,
+            kullanici_adi VARCHAR(50) UNIQUE,
+            sifre         VARCHAR(100),
+            rol           VARCHAR(20)
         )
     """)
 
     imleç.execute("""
-        INSERT OR IGNORE INTO kullanicilar (kullanici_adi, sifre, rol)
-        VALUES (?, ?, ?)
+        INSERT INTO kullanicilar (kullanici_adi, sifre, rol)
+        VALUES (%s, %s, %s)
+        ON CONFLICT (kullanici_adi) DO NOTHING
     """, ("abc", "123", "admin"))
 
     imleç.execute("""
         CREATE TABLE IF NOT EXISTS araclar (
-            id              INTEGER PRIMARY KEY AUTOINCREMENT,
-            vardiya_id      INTEGER,
-            plaka           TEXT,
-            sofor           TEXT,
-            durum           TEXT,
-            tur             INTEGER,
-            ton             REAL,
-            km              REAL,
-            yakit_maliyet   REAL,
-            FOREIGN KEY (vardiya_id) REFERENCES vardiyalar(id)
+            id            SERIAL PRIMARY KEY,
+            vardiya_id    INTEGER REFERENCES vardiyalar(id),
+            plaka         VARCHAR(20),
+            sofor         VARCHAR(50),
+            durum         VARCHAR(20),
+            tur           INTEGER,
+            ton           REAL,
+            km            REAL,
+            yakit_maliyet REAL
         )
     """)
 
@@ -57,12 +65,14 @@ def veritabani_baslat():
 
 # ─── VARDİYA KAYDET ─────────────────────────
 def vardiya_kaydet(vardiya_verisi):
-    baglanti = sqlite3.connect(DB_YOLU)
+    baglanti = baglanti_ac()
     imleç = baglanti.cursor()
 
     imleç.execute("""
         INSERT INTO vardiyalar (tarih, vardiya, sorumlu, toplam_ton, toplam_km, toplam_yakit)
-        VALUES (?, ?, ?, ?, ?, ?)
+        VALUES (%s, %s, %s, %s, %s, %s)
+        ON CONFLICT (tarih, vardiya) DO NOTHING
+        RETURNING id
     """, (
         vardiya_verisi["tarih"],
         vardiya_verisi["vardiya"],
@@ -72,12 +82,17 @@ def vardiya_kaydet(vardiya_verisi):
         vardiya_verisi["toplam_yakit_maliyet"]
     ))
 
-    vardiya_id = imleç.lastrowid
+    sonuc = imleç.fetchone()
+    if sonuc is None:
+        baglanti.close()
+        return
+
+    vardiya_id = sonuc[0]
 
     for arac in vardiya_verisi["araclar"]:
         imleç.execute("""
             INSERT INTO araclar (vardiya_id, plaka, sofor, durum, tur, ton, km, yakit_maliyet)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+            VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
         """, (
             vardiya_id,
             arac["plaka"],
@@ -94,13 +109,13 @@ def vardiya_kaydet(vardiya_verisi):
 
 # ─── GÜNLÜK ÖZET ────────────────────────────
 def gunluk_ozet(tarih):
-    baglanti = sqlite3.connect(DB_YOLU)
+    baglanti = baglanti_ac()
     imleç = baglanti.cursor()
 
     imleç.execute("""
         SELECT vardiya, toplam_ton, toplam_yakit
         FROM vardiyalar
-        WHERE tarih = ?
+        WHERE tarih = %s
         ORDER BY id
     """, (tarih,))
 
@@ -110,7 +125,7 @@ def gunluk_ozet(tarih):
 
 # ─── HAFTALIK ÖZET ──────────────────────────
 def haftalik_ozet():
-    baglanti = sqlite3.connect(DB_YOLU)
+    baglanti = baglanti_ac()
     imleç = baglanti.cursor()
 
     imleç.execute("""
@@ -126,12 +141,12 @@ def haftalik_ozet():
 
 # ─── KULLANICI KONTROL ───────────────────────
 def kullanici_kontrol(kullanici_adi, sifre):
-    baglanti = sqlite3.connect(DB_YOLU)
+    baglanti = baglanti_ac()
     imleç = baglanti.cursor()
 
     imleç.execute("""
         SELECT * FROM kullanicilar
-        WHERE kullanici_adi = ? AND sifre = ?
+        WHERE kullanici_adi = %s AND sifre = %s
     """, (kullanici_adi, sifre))
 
     kullanici = imleç.fetchone()
@@ -141,12 +156,12 @@ def kullanici_kontrol(kullanici_adi, sifre):
         return True
     else:
         return False
-    
+
 # ─── TEST ───────────────────────────────────
 if __name__ == "__main__":
     veritabani_baslat()
 
-    baglanti = sqlite3.connect(DB_YOLU)
+    baglanti = baglanti_ac()
     imleç = baglanti.cursor()
 
     imleç.execute("SELECT COUNT(*) FROM vardiyalar")

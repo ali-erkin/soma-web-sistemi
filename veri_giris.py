@@ -2,7 +2,7 @@ import random
 from datetime import date
 from sabit_veriler import ARACLAR, KAPASITE, VARDIYALAR
 
-def test_vardiya_olustur(vardiya_adi, tarih):
+def sahte_vardiya_olustur(vardiya_adi, tarih):
     vardiya_verisi = {
         "tarih"               : tarih.strftime("%d.%m.%Y"),
         "vardiya"             : vardiya_adi,

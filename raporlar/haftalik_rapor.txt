@@ -1,16 +1,16 @@
 ════════════════════════════════
   SOMA KÖMÜR OCAĞI - HAFTALIK RAPOR
 ════════════════════════════════
-Dönem : 08.05.2026 - 14.05.2026
+Dönem : 17.05.2026 - 23.05.2026
 ────────────────────────────────
-08.05.2026 : 1440 ton → Hedef Tutturulamadi!
-09.05.2026 : 1620 ton → Hedef Asildi!
-10.05.2026 : 1530 ton → Hedef Asildi!
-11.05.2026 : 1830 ton → Hedef Asildi!
-12.05.2026 : 1620 ton → Hedef Asildi!
-13.05.2026 : 1620 ton → Hedef Asildi!
-14.05.2026 : 1380 ton → Hedef Tutturulamadi!
+17.05.2026 : 1500 ton → Hedef Asildi!
+18.05.2026 : 1560 ton → Hedef Asildi!
+19.05.2026 : 1380 ton → Hedef Tutturulamadi!
+20.05.2026 : 1500 ton → Hedef Asildi!
+21.05.2026 : 1740 ton → Hedef Asildi!
+22.05.2026 : 1800 ton → Hedef Asildi!
+23.05.2026 : 1170 ton → Hedef Tutturulamadi!
 ────────────────────────────────
-HAFTALIK TON   : 11040 ton
-HAFTALIK YAKIT : 89289.0 TL
+HAFTALIK TON   : 10650 ton
+HAFTALIK YAKIT : 87480.0 TL
 ════════════════════════════════
