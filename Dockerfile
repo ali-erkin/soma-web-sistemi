@@ -8,4 +8,4 @@ RUN pip install flask psycopg2-binary pandas matplotlib requests python-telegram
 
 EXPOSE 5000
 
-CMD ["python3", "main.py"]
+CMD ["python3", "app.py"]
