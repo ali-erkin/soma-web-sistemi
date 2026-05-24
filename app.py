@@ -5,7 +5,7 @@ from flask import Flask, render_template, request, redirect, url_for, session
 
 sys.path.append(os.path.join(os.path.dirname(__file__), "..", "maden"))
 from sabit_veriler import ARACLAR, HEDEF_GUNLUK, VARDIYALAR
-from veri_giris import test_vardiya_olustur
+from veri_giris import sahte_vardiya_olustur
 from raporlama import vardiya_raporu_kaydet, gunluk_rapor_kaydet, haftalik_rapor_kaydet
 from veritabani import gunluk_ozet, haftalik_ozet, kullanici_kontrol
 from grafik import grafik_olustur
@@ -42,7 +42,7 @@ def cikis():
 import sys
 sys.path.append(os.path.join(os.path.dirname(__file__), "..", "maden"))
 from sabit_veriler import ARACLAR, HEDEF_GUNLUK, VARDIYALAR
-from veri_giris import test_vardiya_olustur
+from veri_giris import sahte_vardiya_olustur
 from raporlama import vardiya_raporu_kaydet, gunluk_rapor_kaydet, haftalik_rapor_kaydet
 from datetime import date, datetime, timedelta
 import os
@@ -54,7 +54,7 @@ def vardiya():
     
     bugun = date.today()
     vardiya_adi, bitis = aktif_vardiya_bul()
-    veri = test_vardiya_olustur(vardiya_adi, bugun)
+    veri = sahte_vardiya_olustur(vardiya_adi, bugun)
     vardiya_raporu_kaydet(veri)
     
     mesaj = "─── " + vardiya_adi.upper() + " VARDİYASI ───\n"
