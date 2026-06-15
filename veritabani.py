@@ -1,12 +1,13 @@
-import psycopg2
+import os
+from dotenv import load_dotenv
+load_dotenv()
 
-# ─── BAĞLANTI BİLGİLERİ ─────────────────────
 DB_BAGLANTI = {
-    "host"    : "aws-0-eu-west-1.pooler.supabase.com",
-    "port"    : 6543,
-    "database": "postgres",
-    "user"    : "postgres.gjkgcbjgaghyvswbtpiy",
-    "password": "Karakartal1903.."
+    "host"    : os.getenv("DB_HOST"),
+    "port"    : int(os.getenv("DB_PORT", 6543)),
+    "database": os.getenv("DB_NAME", "postgres"),
+    "user"    : os.getenv("DB_USER"),
+    "password": os.getenv("DB_PASSWORD")
 }
 
 def baglanti_ac():
